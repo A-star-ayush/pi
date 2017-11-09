@@ -8,10 +8,10 @@ To generate graphs from capture:
 	tcptrace -G dump.out
 
 To plot the graphs:
-	xplot.org graph.xpl
+	xplot.org graph.xpl   (to view the graph in gnuplot, issue "xpl2gpl -s graph.xpl"  .. this will create three files, open graph.gpl with gnuplot"
 
 
-......................................................
+......................................................................................
 
 To receive file on the server:
 	nc -nvvlp <server_port>  > outputFile
@@ -19,4 +19,4 @@ To receive file on the server:
 To send file from the client:
 	cat inputFile | nc <server_ip> <server_port>
 
-......................................................
+.......................................................................................

@@ -60,6 +60,8 @@ main(int argc, char *argv[])
 									break;
 		case TEST_SACK:				rt = test_sack(handle);
 									break;
+		case TEST_ZWP:				rt = test_zwp(handle);
+									break;
 		default:
 			fprintf(stderr, "Invalid test number\n");
 	}

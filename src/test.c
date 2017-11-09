@@ -429,3 +429,56 @@ test_sack(pcap_t* handle)
 	rt = closeConnection(handle);
 	return rt;
 }
+
+int
+test_zwp(pcap_t* handle)
+{
+	s_seq = 10000;
+	s_ack = 0;
+	s_wnd = 536;
+
+	int rt = establishConnection(handle, 0);
+	if (rt < 0)
+		return -1;
+	
+	char* request = "p536p536.";
+	rt = sendAck(handle, NULL, 0, request, strlen(request), PSH);
+	if (rt < 0)
+		return -1;
+	rt = readTillFlags(handle, ACK);
+	if (rt < 0)
+		return -1;
+
+	s_seq = r_ack;
+	// read the first packet
+	rt = readTillFlags(handle, ACK);
+	if (rt < 0)
+		return -1;
+
+	// send a zero window message
+	s_ack = r_seq + r_len;
+	s_wnd = 0;
+	rt = sendAck(handle, NULL, 0, NULL, 0, 0);
+	if (rt < 0)
+		return -1;
+
+	// send a window update after 50 ms
+	usleep(50000);
+	s_wnd = 1000;   
+	rt = sendAck(handle, NULL, 0, NULL, 0, 0);
+	if (rt < 0)
+		return -1;
+
+	// read the second packet
+	rt = readTillFlags(handle, ACK);
+	if (rt < 0)
+		return -1;
+	s_ack = r_seq + r_len;
+	s_wnd -= r_len;
+	rt = sendAck(handle, NULL, 0, NULL, 0, 0);
+	if (rt < 0)
+		return -1;
+
+	rt = closeConnection(handle);
+	return rt;
+}

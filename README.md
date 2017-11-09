@@ -10,8 +10,6 @@ The virtual box assigns a MAC address to the virtual machines which can be viewe
 
 I use Haiku as a tcp server. There are number of applications one can use for that purpose. I prefer netcat or "nc" (nc -nvvlp "port" will start a tcp server at the specified port). Or even better, I use "tcptester" which comes with Haiku. It allows me to requests packets of certain sizes and characteristics from the server. My host linux system serves as a fake tcp client and I use it to make requests to the server and then inject artifical replies or new data as per the test I am running.
 
-Link to a demo video: https://www.youtube.com/watch?v=FDN1i80neLI&feature=youtu.be
-
 **To run pi**
 >Clone the repository to your local system  
 >Open terminal and cd into the cloned directory  
